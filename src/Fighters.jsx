@@ -74,16 +74,16 @@ const fighters = [
 ];
 
 const Fighters = () => {
-    const [money, setMoney] = useState(0);
+    const [money, setMoney] = useState(100);
     const [t_str, setStr] = useState(0);
     const [t_agi, setAgi] = useState(0);
-    const [members, setMembers] = useState(0);
+    const [members, setMembers] = useState([]);
     return (
         <div className="fighters"> 
             <div>Money: {money}</div>
             <div>Team Strength: {t_str}</div>
             <div>Team Agility: {t_agi}</div>
-            <div>Team: {members}</div>
+            <div>Team: {members.map((mem) => <span key={mem}>{mem} </span>)}</div>
             <div className="fighters">
                 {fighters.map((fighter) => (
                     <div className="fighter-card" key={fighter.name}>
@@ -92,6 +92,16 @@ const Fighters = () => {
                         <p>Price: {fighter.price}</p>
                         <p>Strength: {fighter.strength}</p>
                         <p>Agility: {fighter.agility}</p>
+                        <button
+                            onClick={() => {
+                                setMoney(money - fighter.price);
+                                setStr(t_str + fighter.strength);
+                                setAgi(t_agi + fighter.agility);
+                                setMembers([...members, fighter.name]);
+                            }}
+                        >
+                            Hire
+                        </button>
                     </div>
                 ))}
             </div>
